@@ -1,0 +1,35 @@
+image:
+  repository: "<ACCOUNT_ID>.dkr.ecr.ap-northeast-2.amazonaws.com/next-fe"
+  tag: "latest"
+
+replicaCount: 2
+
+nodeSelector:
+  role: "fe"
+tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "fe"
+    effect: "NoSchedule"
+
+resources:
+  requests:
+    cpu: "300m"
+    memory: "512Mi"
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:ap-northeast-2:<ACCOUNT_ID>:certificate/<ALB_CERT_ID>"
+    alb.ingress.kubernetes.io/listen-ports: |
+      [{"HTTPS":443}]
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/healthcheck-path: "/_next/health"
+  hosts:
+    - "app.<YOUR_DOMAIN>"
+  tls: []

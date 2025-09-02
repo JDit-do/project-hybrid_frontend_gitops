@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: next-fe-prod
+  namespace: argocd
+spec:
+  project: apps-prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fe
+  source:
+    repoURL: https://github.com/<ORG>/project-hybrid_frontend_gitops
+    targetRevision: main
+    path: next-fe/charts/next-fe
+    helm:
+      releaseName: next-fe
+      valueFiles:
+        - ../../envs/prod/values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
