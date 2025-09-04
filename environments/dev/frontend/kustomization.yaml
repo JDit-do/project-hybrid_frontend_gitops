@@ -7,7 +7,7 @@ resources:
 images:
   - name: app
     newName: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}
-    newTag: REPLACE_ME_SHA # CI가 해당 값을 SHA로 바꾸는 PR 생성
+    newTag: fe645bbe73184b03a90d4116cf341b6276a67d43
 
 patchesStrategicMerge:
   - patch-replicas.yaml
