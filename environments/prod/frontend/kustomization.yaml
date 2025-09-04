@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: frontend-prod
+resources:
+  - https://github.com/ORG/project-hybrid_platform_gitops//manifests/frontend/base?ref=main
+
+images:
+  - name: app
+    newName: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}
+    newTag: REPLACE_ME_SHA # 승격 시 동일 SHA(또는 버전)로 바뀜
+
+patchesStrategicMerge:
+  - patch-replicas.yaml
+  - patch-ingress.yaml
