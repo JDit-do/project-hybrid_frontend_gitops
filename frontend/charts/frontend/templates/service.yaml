@@ -13,4 +13,5 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: { { .Values.service.port } }
+      targetPort: { { .Values.service.port | default 3000 } }
+      protocol: TCP
