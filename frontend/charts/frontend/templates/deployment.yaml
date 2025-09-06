@@ -30,6 +30,13 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
+{{- if .Values.command }}
+        command: {{ toYaml .Values.command | nindent 8 }}
+{{- end }}
+{{- if .Values.args }}
+        args: {{ toYaml .Values.args | nindent 8 }}
+{{- end }}
+
 {{- if .Values.envFromSecrets }}
           envFrom:
 {{- range .Values.envFromSecrets }}
@@ -41,12 +48,17 @@ spec:
 {{- if .Values.env }}
           env:
 {{- range $k, $v := .Values.env }}
-            - name: {{ $k }}
-              valueFrom:
-                secretKeyRef:
-                  name: {{ $v.secretName }}
-                  key: {{ $v.key }}
+          - name: {{ $k }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $v.secretName }}
+                key: {{ $v.key }}
 {{- end }}
+{{- end }}
+
+{{- if .Values.extraEnv }}
+        env:
+{{ toYaml .Values.extraEnv | nindent 10 }}
 {{- end }}
 
           ports:
