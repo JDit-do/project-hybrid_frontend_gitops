@@ -27,5 +27,5 @@ env: {} # 예: BACKEND_API_URL: {secretName: "...", key: "BACKEND_API_URL"}
 
 # 추가 환경변수 (values에서 직접 정의)
 extraEnv: []
-command: []
-args: []
+# command: []  # Dockerfile CMD 사용
+# args: []     # Dockerfile CMD 사용
