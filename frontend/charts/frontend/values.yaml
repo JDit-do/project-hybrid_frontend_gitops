@@ -25,13 +25,7 @@ ingress:
 envFromSecrets: [] # ["frontend-dev-app"]처럼 Secret 이름
 env: {} # 예: BACKEND_API_URL: {secretName: "...", key: "BACKEND_API_URL"}
 
-service:
-  type: ClusterIP
-  port: 3000
-
-ingress:
-  enabled: false
-  className: alb
-  annotations: {}
-  hosts: []
-  tls: []
+# 추가 환경변수 (values에서 직접 정의)
+extraEnv: []
+command: []
+args: []

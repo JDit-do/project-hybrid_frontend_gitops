@@ -4,7 +4,6 @@ kind: Ingress
 metadata:
   name: {{ include "frontend.fullname" . }}
   annotations:
-    kubernetes.io/ingress.class: "alb"
 {{- if .Values.ingress.annotations }}
 {{ toYaml .Values.ingress.annotations | indent 2 }}
 {{- end }}
@@ -21,7 +20,7 @@ spec:
               service:
                 name: {{ include "frontend.fullname" $ }}
                 port:
-                  number: 80
+                  name: http
 {{- end }}
 {{- if .Values.ingress.tls }}
   tls:

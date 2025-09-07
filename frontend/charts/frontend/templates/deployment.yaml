@@ -45,8 +45,9 @@ spec:
 {{- end }}
 {{- end }}
 
-{{- if .Values.env }}
+{{- if or .Values.env .Values.extraEnv }}
           env:
+{{- if .Values.env }}
 {{- range $k, $v := .Values.env }}
             - name: {{ $k }}
               valueFrom:
@@ -55,10 +56,9 @@ spec:
                   key: {{ $v.key }}
 {{- end }}
 {{- end }}
-
 {{- if .Values.extraEnv }}
-          env:
 {{ toYaml .Values.extraEnv | nindent 12 }}
+{{- end }}
 {{- end }}
 
           ports:
