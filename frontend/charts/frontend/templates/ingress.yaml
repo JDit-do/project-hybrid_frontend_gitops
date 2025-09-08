@@ -5,7 +5,7 @@ metadata:
   name: {{ include "frontend.fullname" . }}
   annotations:
 {{- if .Values.ingress.annotations }}
-{{ toYaml .Values.ingress.annotations | indent 2 }}
+{{ toYaml .Values.ingress.annotations | indent 3 }}
 {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className | quote }}
